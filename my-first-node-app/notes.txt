@@ -1,0 +1,164 @@
+npm init -y //initialize the node project and creates a package.json file with default settings.
+
+
+
+
+create app.js file and write this code to create server :
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.write('Hello, this is a Node.js server!');
+  res.end();
+});
+
+server.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
+
+
+explanation of code :
+const http = require('http');
+require('http'): This imports Node.js's built-in HTTP module.
+
+This module helps us create a web server.
+
+const http: We're storing the imported module in a variable named http.
+
+🔹 const server = http.createServer((req, res) => { ... });
+http.createServer(): This method creates a server.
+
+It takes a callback function with two arguments:
+
+req: Stands for request. It contains details about what the user/browser is asking for (like URL, method).
+
+res: Stands for response. It is used to send back data to the user/browser.
+
+🔹 res.write('Hello, this is a Node.js server!');
+This line writes a message as a response to the browser.
+
+But it doesn't end the response yet — so we use res.end() next.
+
+🔹 res.end();
+This tells Node.js that the response is complete.
+
+Without this, the browser keeps waiting for the response to finish.
+
+🔹 server.listen(3000, () => { ... });
+This tells your server to listen on port 3000.
+
+3000 is a commonly used port for testing local web servers.
+
+The function () => { ... } runs when the server starts successfully.
+
+🔹 console.log('Server is running on http://localhost:3000');
+This just prints a message to the terminal so you know your server is working.
+
+localhost means your own computer.
+
+So the server is available at http://localhost:3000
+
+| Line              | What it Does                               |
+| ----------------- | ------------------------------------------ |
+| `require('http')` | Brings in the HTTP module                  |
+| `createServer()`  | Creates a basic server                     |
+| `req` and `res`   | Request (from user) and Response (to user) |
+| `res.write()`     | Writes a message to the response           |
+| `res.end()`       | Ends the response                          |
+| `listen(3000)`    | Starts the server on port 3000             |
+
+
+
+
+
+
+to run the code :
+node app.js OR nodemon app.js
+
+
+
+
+
+to install external packages :
+npm install
+
+to install particular external package like express :
+npm install express
+
+
+
+
+
+code of express :
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
+app.listen(3000, () => {
+  console.log('Express server running on http://localhost:3000');
+});
+
+💡 What is app?
+express() creates an Express application.
+
+The variable app becomes an instance of that application.
+
+This app object is what you'll use to:
+
+define routes (app.get(), app.post(), etc.)
+
+handle requests and responses
+
+configure middleware
+
+start the server
+
+
+
+
+
+You manually create a server like this:
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.write('Hello');
+  res.end();
+});
+
+server.listen(3000);
+
+Here, you're doing everything manually — creating the server, handling routes, sending responses, etc.
+
+
+✅ In Express:
+This line does everything behind the scenes:
+const app = express();
+
+
+What express() does:
+Internally uses http.createServer()
+
+Sets up routing, middleware, and request handling for you
+
+Makes it easier to build web apps
+
+So when you write:
+app.listen(5000);
+
+It automatically:
+
+Creates the HTTP server
+
+Starts listening on port 5000
+
+Connects all your route handlers (app.get, app.post, etc.) to the server
+
+
+
+| Plain Node.js                   | Express                            |
+| ------------------------------- | ---------------------------------- |
+| You create the server manually  | Express creates the server for you |
+| You handle all routing manually | Express provides `app.get`, etc.   |
+| More boilerplate code           | Cleaner, easier to read/write      |
